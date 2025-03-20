@@ -31,32 +31,38 @@ export default function AddPassengers() {
   };
 
   return (
-    <div style={{ padding: 20 }}>
+    <div className="container">
       <h1>Add Passenger to Flight {flight_id}</h1>
-      <div style={{ display: "flex", flexDirection: "column", width: 300 }}>
-        <input
-          type="text"
-          placeholder="Name"
-          value={passenger.name}
-          onChange={(e) => setPassenger({ ...passenger, name: e.target.value })}
-          style={{ marginBottom: 8 }}
-        />
-        <input
-          type="text"
-          placeholder="Seat No"
-          value={passenger.seat_no}
-          onChange={(e) => setPassenger({ ...passenger, seat_no: e.target.value })}
-          style={{ marginBottom: 8 }}
-        />
-        <input
-          type="number"
-          placeholder="Age"
-          value={passenger.age}
-          onChange={(e) => setPassenger({ ...passenger, age: e.target.value })}
-          style={{ marginBottom: 8 }}
-        />
-      </div>
-      <button onClick={addPassenger}>Next (Add Baggage)</button>
+      <input
+        className="input"
+        type="text"
+        placeholder="Name"
+        value={passenger.name}
+        onChange={(e) =>
+          setPassenger({ ...passenger, name: e.target.value })
+        }
+      />
+      <input
+        className="input"
+        type="text"
+        placeholder="Seat No"
+        value={passenger.seat_no}
+        onChange={(e) =>
+          setPassenger({ ...passenger, seat_no: e.target.value })
+        }
+      />
+      <input
+        className="input"
+        type="number"
+        placeholder="Age"
+        value={passenger.age}
+        onChange={(e) =>
+          setPassenger({ ...passenger, age: e.target.value })
+        }
+      />
+      <button className="button" onClick={addPassenger}>
+        Next (Add Baggage)
+      </button>
     </div>
   );
 }

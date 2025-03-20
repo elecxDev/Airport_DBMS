@@ -21,8 +21,8 @@ export default function Dashboard() {
     <div className="container">
       <header className="header">
         <h1>Flights Dashboard</h1>
-        <Link href="/create-flight" legacyBehavior>
-          <a className="button">Create Flight</a>
+        <Link href="/create-flight" className="button">
+            Create Flight
         </Link>
       </header>
       {flights.length === 0 ? (

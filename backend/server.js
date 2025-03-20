@@ -22,10 +22,14 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY
 */
 app.post("/flights", async (req, res) => {
   try {
-    const { flight_name, from_airport, to_airport, ETA, Dep_time, crewmate_id } = req.body;
+    // Destructure only the fields provided by the frontend
+    const { flight_name, from_airport, to_airport, ETA, Dep_time } = req.body;
+    // Build the insert object (exclude crewmate_id)
+    const flightData = { flight_name, from_airport, to_airport, ETA, Dep_time };
+    
     const { data, error } = await supabase
       .from("Flights")
-      .insert([{ flight_name, from_airport, to_airport, ETA, Dep_time, crewmate_id }])
+      .insert([flightData])
       .select();
 
     if (error) throw error;
@@ -35,6 +39,7 @@ app.post("/flights", async (req, res) => {
     return res.status(400).json({ error: err.message });
   }
 });
+
 
 /*
   GATES TABLE
@@ -130,6 +135,53 @@ app.post("/crewmates", async (req, res) => {
     return res.status(400).json({ error: err.message });
   }
 });
+
+// List all flights
+app.get("/flights", async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from("Flights")
+      .select("*");
+    if (error) throw error;
+    return res.status(200).json(data);
+  } catch (err) {
+    console.error("Error fetching flights:", err);
+    return res.status(400).json({ error: err.message });
+  }
+});
+
+// Fetch passengers for a flight
+app.get("/flights/:flight_id/passengers", async (req, res) => {
+  const { flight_id } = req.params;
+  try {
+    const { data, error } = await supabase
+      .from("Passengers")
+      .select("*")
+      .eq("flight_id", flight_id);
+    if (error) throw error;
+    res.status(200).json(data);
+  } catch (err) {
+    console.error("Error fetching passengers:", err);
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// Fetch baggage for a passenger
+app.get("/passengers/:passenger_id/baggage", async (req, res) => {
+  const { passenger_id } = req.params;
+  try {
+    const { data, error } = await supabase
+      .from("Baggage")
+      .select("*")
+      .eq("passenger_id", passenger_id);
+    if (error) throw error;
+    res.status(200).json(data);
+  } catch (err) {
+    console.error("Error fetching baggage:", err);
+    res.status(400).json({ error: err.message });
+  }
+});
+
 
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Backend server running on http://localhost:${PORT}`));

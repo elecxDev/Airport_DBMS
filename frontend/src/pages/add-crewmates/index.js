@@ -12,7 +12,6 @@ export default function AddCrewmates() {
       const res = await axios.post("http://localhost:5000/crewmates", crewmate);
       console.log("Crewmate created:", res.data);
       alert("Crewmate added successfully!");
-      // Clear form
       setCrewmate({ name: "", role: "" });
     } catch (error) {
       console.error("Error creating crewmate:", error.response?.data || error);
@@ -21,25 +20,25 @@ export default function AddCrewmates() {
   };
 
   return (
-    <div style={{ padding: 20 }}>
+    <div className="container">
       <h1>Add Crewmate</h1>
-      <div style={{ display: "flex", flexDirection: "column", width: 300 }}>
-        <input
-          type="text"
-          placeholder="Name"
-          value={crewmate.name}
-          onChange={(e) => setCrewmate({ ...crewmate, name: e.target.value })}
-          style={{ marginBottom: 8 }}
-        />
-        <input
-          type="text"
-          placeholder="Role"
-          value={crewmate.role}
-          onChange={(e) => setCrewmate({ ...crewmate, role: e.target.value })}
-          style={{ marginBottom: 8 }}
-        />
-      </div>
-      <button onClick={createCrewmate}>Add Crewmate</button>
+      <input
+        className="input"
+        type="text"
+        placeholder="Name"
+        value={crewmate.name}
+        onChange={(e) => setCrewmate({ ...crewmate, name: e.target.value })}
+      />
+      <input
+        className="input"
+        type="text"
+        placeholder="Role"
+        value={crewmate.role}
+        onChange={(e) => setCrewmate({ ...crewmate, role: e.target.value })}
+      />
+      <button className="button" onClick={createCrewmate}>
+        Add Crewmate
+      </button>
     </div>
   );
 }

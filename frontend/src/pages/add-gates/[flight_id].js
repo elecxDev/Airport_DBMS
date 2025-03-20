@@ -16,7 +16,6 @@ export default function AddGate() {
     try {
       const res = await axios.post(`http://localhost:5000/flights/${flight_id}/gates`);
       console.log("Gate assigned:", res.data);
-      // After gate is assigned, move on to add passengers + baggage
       router.push(`/add-passengers-baggage/${flight_id}`);
     } catch (error) {
       console.error("Error assigning gate:", error.response?.data || error);
@@ -25,9 +24,9 @@ export default function AddGate() {
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>Assigning Gate to Flight {flight_id}...</h1>
-      <p>Check console for logs. You will be redirected shortly.</p>
+    <div className="container">
+      <h1>Assigning Gate</h1>
+      <p>Assigning gate to Flight {flight_id}... Please wait.</p>
     </div>
   );
 }
