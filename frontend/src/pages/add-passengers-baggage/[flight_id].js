@@ -85,7 +85,7 @@ export default function AddPassengersBaggage() {
           key={index}
           style={{
             border: "1px solid #ddd",
-            padding: 5,
+            padding: 10,
             margin: "10px 0",
             borderRadius: 4
           }}
